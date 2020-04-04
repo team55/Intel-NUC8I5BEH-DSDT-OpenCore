@@ -40,36 +40,16 @@ install_nuc8bc: $(AML_PRODUCTS)
 	
 	# clean output
 	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT-*.aml
-	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_SKLSPF.aml
 	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT.aml
 	
 	# copy files
 	cp $(BUILDDIR)/SSDT-NUC8-BC.aml "$(EFIDIR)"/EFI/CLOVER/ACPI/patched
 	cp $(BUILDDIR)/SSDT-DDA.aml "$(EFIDIR)"/EFI/CLOVER/ACPI/patched
 	if [[ -e "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_CFLALT.aml ]]; then make install_cflalt; fi
-	if [[ -e "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_KBLSPF.aml ]]; then make install_kblspoof; fi
 
-# optional Skylake spoof (for KabyLake and CoffeeLake)
-.PHONY: install_sklspoof
-install_sklspoof: $(AML_PRODUCTS)
-	$(eval EFIDIR:=$(shell ./mount_efi.sh))
-	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_KBLSPF.aml
-	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_CFLALT.aml
-	cp $(BUILDDIR)/SSDT_SKLSPF.aml "$(EFIDIR)"/EFI/CLOVER/ACPI/patched
-
-# optional KabyLake spoof (for CoffeeLake)
-.PHONY: install_kblspoof
-install_kblspoof: $(AML_PRODUCTS)
-	$(eval EFIDIR:=$(shell ./mount_efi.sh))
-	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_SKLSPF.aml
-	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_CFLALT.aml
-	cp $(BUILDDIR)/SSDT_KBLSPF.aml "$(EFIDIR)"/EFI/CLOVER/ACPI/patched
-
-# optional CoffeeLake alternate
+# optional CoffeeLake Alternate configuration for systems where 0x3e9b0007 works better than 0x3ea50000.
 .PHONY: install_cflalt
 install_cflalt: $(AML_PRODUCTS)
 	$(eval EFIDIR:=$(shell ./mount_efi.sh))
-	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_SKLSPF.aml
-	rm -f "$(EFIDIR)"/EFI/CLOVER/ACPI/patched/SSDT_KBLSPF.aml
 	cp $(BUILDDIR)/SSDT_CFLALT.aml "$(EFIDIR)"/EFI/CLOVER/ACPI/patched
 

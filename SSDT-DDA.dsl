@@ -1,7 +1,7 @@
 // SSDT-DDA.dsl
 //
 // The purpose of this file is to define only the symbol RMDA.
-// With RMDA defined, SSDT-HDEF, SSDT-HDAU, and SSDT-IGPU will disable "hda-gfx" injection
+// With RMDA defined, SSDT-HDEF and SSDT-IGPU will disable "hda-gfx" injection
 // by changing it to "#hda-gfx".
 //
 // Because "hda-gfx" needs to be disabled in some update scenarios, this mechanism
