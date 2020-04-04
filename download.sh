@@ -7,9 +7,6 @@
 # include subroutines
 source "$(dirname ${BASH_SOURCE[0]})"/_tools/_download_subs.sh
 
-# remove deprecated downloads directory to avoid confusion
-if [[ -e ./downloads ]]; then rm -Rf ./downloads; fi
-
 # create _downloads directory and clean
 if [[ ! -d ./_downloads ]]; then mkdir ./_downloads; fi && rm -Rf ./_downloads/* && cd ./_downloads
 
