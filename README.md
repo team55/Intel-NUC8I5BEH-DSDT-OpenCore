@@ -1,3 +1,9 @@
+### REPO IN PROGRESS - dont use or fork at this time
+
+
+
+
+
 ## Based on Intel "NUC5"/"NUC6"/"NUC7"/"NUC8" DSDT patches by RehabMan
 
 https://www.tonymacx86.com/threads/guide-intel-nuc7-nuc8-using-clover-uefi-nuc7i7bxx-nuc8i7bxx-etc.261711/
