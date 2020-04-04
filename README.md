@@ -72,10 +72,21 @@ The download.sh script will automatically gather the latest version of all tools
 
 To finish the setup, we need a correctly patched ACPI.
 
-In Terminal:
+
+### In Terminal:
+
+для создания патчей запустить скрипт
 
 make
-make install_nuc7
+
+для подготовки каталога установки
+
+make build_nuc8bc
+
+для установки на системный раздел
+
+make install_nuc8bc
+
 
 ### Power Management
 

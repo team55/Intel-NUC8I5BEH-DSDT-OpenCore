@@ -5,3 +5,5 @@ build/*
 !build/readme.txt
 Patches.xcodeproj/project.xcworkspace
 Patches.xcodeproj/xcuserdata
+DRIVE/EFI/OC/ACPI/SSDT-NUC8-BC.aml
+DRIVE/EFI/OC/ACPI/SSDT-DDA.aml
