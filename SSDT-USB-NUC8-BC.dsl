@@ -7,7 +7,8 @@
         Name(_HID, "UIA00000")
         Name(RMCF, Package()
         {
-            // XHC overrides (8086:9ded, NUC7 Dawson Canyon)
+            // XHC overrides (8086:9ded, NUC8)
+            // Common port connector types are USB2 = 0, USB3 = 3, internal = 255.
             "8086_9ded", Package()
             {
                 //"port-count", Buffer() { 18, 0, 0, 0 },
@@ -16,7 +17,7 @@
                     "HS01", Package() // front right
                     {
                         "UsbConnector", 3,
-                        "port", Buffer() { 1, 0, 0, 0 },
+                        "port", Buffer() { 0x01, 0, 0, 0 },
                     },
                     "HS02", Package() // front left
                     {
@@ -33,11 +34,22 @@
                         "UsbConnector", 3,
                         "port", Buffer() { 4, 0, 0, 0 },
                     },
-                    "HS10", Package() // bluetooth
+                    "HS05", Package() // internal usb (left?)
                     {
-                        "UsbConnector", 255,
-                        "port", Buffer() { 10, 0, 0, 0 },
+                        "UsbConnector", 0,
+                        "port", Buffer() { 5, 0, 0, 0 },
                     },
+                    "HS06", Package() // internal usb (right?)
+                    {
+                        "UsbConnector", 0,
+                        "port", Buffer() { 6, 0, 0, 0 },
+                    },
+                    // DISABLED
+                    // "HS10", Package() // intel bluetooth (what is 255 ?)
+                    // {
+                    //     "UsbConnector", 255,
+                    //     "port", Buffer() { 10, 0, 0, 0 },
+                    // },
                     "SS01", Package() // front right
                     {
                         "UsbConnector", 3,

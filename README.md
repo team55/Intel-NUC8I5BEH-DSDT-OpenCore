@@ -1,12 +1,30 @@
 ### REPO IN PROGRESS - dont use or fork at this time
 
+HARDWARE:
+- Intel® Core™ i5-8259U
+- Intel® Wireless-AC 9560 + Bluetooth 5.0
+- Intel® Ethernet Connection I219-V (works with IntelMausiEthernet.kext)
+- Intel® Iris® Plus Graphics 655
+- 2x front and 3x rear USB 3.1 Gen2; 2x USB 2.0 via internal headers
+- Audio Codec : Realtek ALC235
+
+bios 56-78
+
+какие драйверка clover подходят для OC
+https://github.com/khronokernel/Opencore-Vanilla-Desktop-Guide/blob/master/clover-conversion/clover-efi.md
 
 
-
-
-## Based on Intel "NUC5"/"NUC6"/"NUC7"/"NUC8" DSDT patches by RehabMan
+## Based on Intel "NUC8" DSDT patches by RehabMan
 
 https://www.tonymacx86.com/threads/guide-intel-nuc7-nuc8-using-clover-uefi-nuc7i7bxx-nuc8i7bxx-etc.261711/
+
+## happy installs  
+https://www.tonymacx86.com/threads/success-hackintosh-macos-mojave-10-14-3-build-18d42-at-intel-nuc8i7beh.273316/
+
+## after bios update boot issues
+https://www.tonymacx86.com/threads/fix-for-boot-hangs-after-bios-update-acpi-patch.275091/
+
+
 
 изначально инсталляция идет с конфигом
 config_install_nuc7.plist и IntelMausiEthernet.kext (что бы сеть завести)
@@ -15,20 +33,51 @@ config_install_nuc7.plist и IntelMausiEthernet.kext (что бы сеть за�
 
 при необходимости добавляются Lilu.kext and IntelGraphicsFixup (HD615/HD620/HD630)
 
-
 потом на машине запускаются скрипты настройки загрузчика (postinstall)
 
 
-ighlights:
-- KabyLake-R Core i7-8650U
-- Intel UHD 620 graphics
-- replaceable WiFi via M.2 2230 slot
-- M.2 2280 for SSD
-- dual-HDMI at back panel (one marked "Protected UHD")
-- 4x USB3 ports (2x back, 2x front)
-- Ethernet (works with IntelMausiEthernet.kext)
-- no analog audio (audio works via HDMI audio)
-- no Thunderbolt, no USB type C
+---------------------------------
+steps
+- compile asl
+- download drivers 
+    APFSDriverLoader, AptioMemoryFix (support for APFSDriverLoader ) https://github.com/acidanthera/AppleSupportPkg/releases
+    
+    FwRuntimeServices.efi replacement for AptioMemoryFix.efi, 
+
+    do not mix drivers
+    VBoxHfs implements HFS+ support with bless extensions (if need)
+    HfsPlus.efi if need old apple fs https://github.com/acidanthera/OcBinaryData
+
+
+- download kexts:
+### VirtualSMC *
+Advanced Apple SMC emulator in the kernel. Requires Lilu for full functioning. https://github.com/acidanthera/VirtualSMC 
+
+### Lilu 
+Arbitrary kext and process patching on macOS. https://github.com/acidanthera/Lilu
+
+### WhateverGreen 
+Various patches necessary for certain ATI/AMD/Intel/Nvidia GPUs https://github.com/acidanthera/WhateverGreen
+
+### AppleALC *
+Native macOS HD audio for not officially supported codecs https://github.com/acidanthera/AppleALC
+need set layout 
+
+### IntelMausi  (почему от рехаб ?)
+https://github.com/acidanthera/IntelMausi/releases
+
+
+
+### ??? Intel Ethernet LAN driver for macOS
+https://github.com/acidanthera/HibernationFixup
+https://github.com/acidanthera/NVMeFix/releases non apple ssd 
+https://github.com/acidanthera/BrcmPatchRAM load firmware
+https://github.com/acidanthera/CPUFriend Dynamic macOS CPU power management data injection
+
+https://github.com/RehabMan/EAPD-Codec-Commander идет в дистр (вроде как для работы аудио после сна https://github.com/dongyubin/nuc8i5beh/blob/master/Catalina/5097EFI/CLOVER/kexts/Other/CodecCommander.kext/Contents/Resources/SSDT-AppleALC.dsl)
+https://github.com/dongyubin/nuc8i5beh/blob/master/Catalina/5097EFI/CLOVER/ACPI/patched/SSDT-NUC8-ALC235-28.aml
+
+
 
 
 - add EmuVariableUefi-64.efi to drivers64UEFI
